@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Card, CardContent, Typography} from "@mui/material";
+import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
 
 export type SoundcloudProps = {}
 
@@ -7,7 +7,14 @@ export const Soundcloud: React.FC<SoundcloudProps> = ({}) => {
 
   return (
     <Card>
-      <CardContent>
+      <CardContent sx={{
+        pb: '16px!important'
+      }}>
+        <Divider textAlign="left" sx={{mb: 2}}>
+          <Typography variant="h6" component="div" >
+            audios
+          </Typography>
+        </Divider>
         <iframe
           width="100%"
           height="400"

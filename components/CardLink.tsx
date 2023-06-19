@@ -1,8 +1,7 @@
 import React from 'react'
 import {Card, CardContent} from "@mui/material";
 import Link from 'next/link'
-
-const backgroundColor = '#666666'
+import { styled } from '@mui/material/styles';
 
 export type CardLinkProps = {
   children: React.ReactElement,
@@ -21,8 +20,9 @@ export const CardLink: React.FC<CardLinkProps> = ({
       <Card
         sx={{
           ...sx,
-          backgroundColor,
           cursor: 'pointer',
+          border: '1px solid transparent',
+          lineHeight: 0,
           '&:hover': {
             border: '1px solid white'
           }

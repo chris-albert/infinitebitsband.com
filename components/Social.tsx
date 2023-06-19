@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Card, CardContent, Grid} from "@mui/material";
+import {Grid} from "@mui/material";
 import Image from 'next/image'
 import Instagram from '../public/images/instagram.png'
 import Spotify from '../public/images/spotify.png'
@@ -16,12 +16,13 @@ export const Social: React.FC<SocialProps> = ({}) => {
 
   return (
     <Grid
+      item
       container
-      sx={{py: 2, mt: 1}}
       spacing={2}
+      justifyContent='center'
     >
       <Grid item>
-        <CardLink href={''}>
+        <CardLink href={'https://www.instagram.com/infinite_bits_band/'}>
           <Image
             height={imageHeight}
             src={Instagram}
@@ -57,7 +58,7 @@ export const Social: React.FC<SocialProps> = ({}) => {
         </CardLink>
       </Grid>
       <Grid item>
-        <CardLink href={''}>
+        <CardLink href={'https://www.youtube.com/channel/UCFdMVO3JBoVVtgP9l0r_eVA'}>
           <Image
             height={imageHeight}
             src={YouTube}
