@@ -2,6 +2,7 @@ import React from 'react'
 import {AppBar, Box, Toolbar, Typography, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import Link from 'next/link'
 
 export type NavProps = {}
 
@@ -27,7 +28,8 @@ export const Nav: React.FC<NavProps> = ({}) => {
                 <ListItemButton
                   onClick={() => {}}
                 >
-                  <ListItemText primary={text} />
+                  <Link href={'/' + text}>{text}</Link>
+                  {/*<ListItemText primary={text} />*/}
                 </ListItemButton>
               </ListItem>
             ))}
@@ -40,16 +42,16 @@ export const Nav: React.FC<NavProps> = ({}) => {
           width: '100%'
         }}>
           <Box>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              onClick={() => setNavOpen(true)}
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
+            {/*<IconButton*/}
+            {/*  size="large"*/}
+            {/*  edge="start"*/}
+            {/*  color="inherit"*/}
+            {/*  aria-label="menu"*/}
+            {/*  onClick={() => setNavOpen(true)}*/}
+            {/*  sx={{ mr: 2 }}*/}
+            {/*>*/}
+            {/*  <MenuIcon />*/}
+            {/*</IconButton>*/}
           </Box>
           <Box sx={{
             display: 'flex',
