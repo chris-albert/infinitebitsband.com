@@ -6,6 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import {Layout} from "../components/Layout"
 import background from "../public/images/rainbox-noise-5.png"
+import whiteNoise from "../public/images/white-20.png"
 
 import "@fontsource/roboto-mono/600.css"; // Defaults to weight 400
 
@@ -55,16 +56,13 @@ export default function Home({}) {
       sx={{
         position: 'absolute',
         width: '100%',
-        // height: '100%',
         backgroundImage: `url(${background.src})`,
-        // backgroundImage: `linear-gradient(225deg, ${blue}, ${pink})`,
         backgroundPosition: 'center',
-        // backgroundSize: 'cover',
         backgroundRepeat: 'repeat'
       }}
     >
       <Head>
-        <title>infinite bits</title>
+        <title>infinite_bits</title>
       </Head>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
