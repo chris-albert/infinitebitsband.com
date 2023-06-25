@@ -14,6 +14,22 @@ const blue = 'rgb(16, 81, 145)'
 const pink = 'rgb(143, 19, 66)'
 
 const darkTheme = createTheme({
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundImage: `linear-gradient(45deg, ${blue}, ${pink})`
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: `linear-gradient(45deg, ${blue}, ${pink})`
+        },
+      },
+    }
+  },
   typography: {
     fontFamily: [
       'Roboto Mono',
@@ -41,6 +57,7 @@ export default function Home({}) {
         width: '100%',
         // height: '100%',
         backgroundImage: `url(${background.src})`,
+        // backgroundImage: `linear-gradient(225deg, ${blue}, ${pink})`,
         backgroundPosition: 'center',
         // backgroundSize: 'cover',
         backgroundRepeat: 'repeat'
