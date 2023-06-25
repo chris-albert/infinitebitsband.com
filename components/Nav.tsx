@@ -3,6 +3,9 @@ import {AppBar, Box, Toolbar, Typography, Drawer, List, ListItem, ListItemButton
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link'
+import Image from "next/image";
+import headerLogo from "../public/images/logo-long-20.png"
+// import headerLogo from "../public/images/logo-full-long-negative.png"
 
 export type NavProps = {}
 
@@ -58,9 +61,10 @@ export const Nav: React.FC<NavProps> = ({}) => {
             flexDirection: 'column',
             justifyContent: 'center'
           }}>
-            <Typography variant="h6" component="div" >
-              ... infinite_bits ...
-            </Typography>
+            <Image src={headerLogo} height={50} alt="logo" />
+            {/*<Typography variant="h6" component="div" >*/}
+            {/*  ... infinite_bits ...*/}
+            {/*</Typography>*/}
           </Box>
           <Box></Box>
         </Box>
