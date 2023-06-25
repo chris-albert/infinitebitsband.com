@@ -1,7 +1,6 @@
 import React from 'react'
-import {Card, CardContent} from "@mui/material";
+import {Card, CardContent, Paper} from "@mui/material";
 import Link from 'next/link'
-import { styled } from '@mui/material/styles';
 
 export type CardLinkProps = {
   children: React.ReactElement,
@@ -14,6 +13,24 @@ export const CardLink: React.FC<CardLinkProps> = ({
   href,
   sx
 }) => {
+  return (
+    <Link href={href}>
+      <Paper
+        sx={{
+          ...sx,
+          cursor: 'pointer',
+          lineHeight: 0,
+          '&:hover': {
+            border: '1px solid white',
+            margin: '-1px'
+          }
+        }}
+      >
+        {children}
+      </Paper>
+    </Link>
+
+  )
 
   return (
     <Link href={href}>
