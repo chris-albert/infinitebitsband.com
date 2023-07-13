@@ -4,6 +4,8 @@ import {Card, CardContent, Box, Typography, Divider} from "@mui/material";
 import Image from 'next/image'
 import FirstShow1 from '../public/images/photos/first-show-1.jpg'
 import FirstShow2 from '../public/images/photos/first-show-2.jpg'
+import LogoVertNeg from '../public/images/logo-vert-20.png'
+import LogoVert from '../public/images/logo-vert-20-neg.png'
 
 export type PhotosProps = {}
 
@@ -41,6 +43,28 @@ export const Photos: React.FC<PhotosProps> = ({}) => {
           }}>
             <Image
               src={FirstShow1}
+              height={500}
+              alt=''
+            />
+          </Box>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <Image
+              src={LogoVertNeg}
+              height={500}
+              alt=''
+            />
+          </Box>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <Image
+              src={LogoVert}
               height={500}
               alt=''
             />
