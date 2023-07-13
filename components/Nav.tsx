@@ -5,12 +5,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link'
 import Image from "next/image";
 import headerLogo from "../public/images/logo-long-20.png"
-// import headerLogo from "../public/images/logo-full-long-negative.png"
+import { useRouter } from 'next/router'
+import _ from 'lodash'
+import {Pages} from "./Pages";
 
 export type NavProps = {}
 
 export const Nav: React.FC<NavProps> = ({}) => {
 
+  const router = useRouter()
   const [navOpen, setNavOpen] = React.useState(false)
 
   return (
@@ -26,13 +29,15 @@ export const Nav: React.FC<NavProps> = ({}) => {
           onClose={() => setNavOpen(false)}
         >
           <List>
-            {['audios', 'videos', 'events', 'photos'].map((text, index) => (
-              <ListItem key={text} disablePadding>
+            {_.map(Pages, (page, name) => (
+              <ListItem key={name} disablePadding>
                 <ListItemButton
-                  onClick={() => {}}
+                  onClick={() => {
+                    router.push(`/${name}`)
+                    setNavOpen(false)
+                  }}
                 >
-                  <Link href={'/' + text}>{text}</Link>
-                  {/*<ListItemText primary={text} />*/}
+                  <ListItemText primary={name} />
                 </ListItemButton>
               </ListItem>
             ))}
@@ -45,26 +50,29 @@ export const Nav: React.FC<NavProps> = ({}) => {
           width: '100%'
         }}>
           <Box>
-            {/*<IconButton*/}
-            {/*  size="large"*/}
-            {/*  edge="start"*/}
-            {/*  color="inherit"*/}
-            {/*  aria-label="menu"*/}
-            {/*  onClick={() => setNavOpen(true)}*/}
-            {/*  sx={{ mr: 2 }}*/}
-            {/*>*/}
-            {/*  <MenuIcon />*/}
-            {/*</IconButton>*/}
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={() => setNavOpen(true)}
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
           </Box>
-          <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center'
-          }}>
-            <Image src={headerLogo} height={50} alt="logo" />
-            {/*<Typography variant="h6" component="div" >*/}
-            {/*  ... infinite_bits ...*/}
-            {/*</Typography>*/}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              cursor: 'pointer'
+            }}
+            onClick = {() => {
+              router.push('/')
+            }}
+          >
+              <Image src={headerLogo} height={50} alt="logo" />
           </Box>
           <Box></Box>
         </Box>

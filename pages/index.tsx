@@ -1,74 +1,9 @@
-import Head from 'next/head'
 import { GetStaticProps } from 'next'
-import {Box} from "@mui/material";
+import {Home} from '../components/Home'
 
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import {Layout} from "../components/Layout"
-import background from "../public/images/rainbox-noise-5.png"
-import whiteNoise from "../public/images/white-20.png"
-
-import "@fontsource/roboto-mono/600.css"; // Defaults to weight 400
-
-// const blue = 'rgb(114, 193, 220)'
-const blue = 'rgb(16, 81, 145)'
-const pink = 'rgb(143, 19, 66)'
-
-const darkTheme = createTheme({
-  components: {
-    MuiAppBar: {
-      styleOverrides: {
-        root: {
-          backgroundImage: `linear-gradient(45deg, ${blue}, ${pink})`
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundImage: `linear-gradient(45deg, ${blue}, ${pink})`
-        },
-      },
-    }
-  },
-  typography: {
-    fontFamily: [
-      'Roboto Mono',
-    ].join(','),
-  },
-  palette: {
-    mode: 'dark',
-    // divider: pink,
-    secondary: {
-      dark: pink,
-      main: blue
-    },
-    background: {
-      default: blue,
-      paper: blue,
-    }
-  },
-});
-
-export default function Home({}) {
+export default function Index({}) {
   return (
-    <Box
-      sx={{
-        position: 'absolute',
-        width: '100%',
-        backgroundImage: `url(${background.src})`,
-        backgroundPosition: 'center',
-        backgroundRepeat: 'repeat'
-      }}
-    >
-      <Head>
-        <title>infinite_bits</title>
-      </Head>
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <Layout />
-      </ThemeProvider>
-    </Box>
+    <Home />
   )
 }
 

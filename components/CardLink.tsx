@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, CardContent, Paper} from "@mui/material";
+import {Paper} from "@mui/material";
 import Link from 'next/link'
 
 export type CardLinkProps = {
@@ -20,6 +20,8 @@ export const CardLink: React.FC<CardLinkProps> = ({
           ...sx,
           cursor: 'pointer',
           lineHeight: 0,
+          backgroundColor: 'rgba(0,0,0,0)',
+          backgroundImage: `linear-gradient(45deg, rgba(16, 81, 145, .4), rgba(143, 19, 66, .4))`,
           '&:hover': {
             border: '1px solid white',
             margin: '-1px'
@@ -28,31 +30,6 @@ export const CardLink: React.FC<CardLinkProps> = ({
       >
         {children}
       </Paper>
-    </Link>
-
-  )
-
-  return (
-    <Link href={href}>
-      <Card
-        sx={{
-          ...sx,
-          cursor: 'pointer',
-          border: '1px solid transparent',
-          lineHeight: 0,
-          '&:hover': {
-            border: '1px solid white'
-          }
-        }}
-      >
-        <CardContent
-          sx={{
-            p: 0,
-            pb: '0px !important'
-          }}>
-          {children}
-        </CardContent>
-      </Card>
     </Link>
 
   )
