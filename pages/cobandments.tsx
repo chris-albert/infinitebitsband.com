@@ -3,7 +3,7 @@ import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
 
 export type CobandmentsProps = {}
 
-export const Cobandments: React.FC<CobandmentsProps> = ({}) => {
+const Cobandments: React.FC<CobandmentsProps> = ({}) => {
 
   return (
     <Card>
@@ -26,3 +26,5 @@ export const Cobandments: React.FC<CobandmentsProps> = ({}) => {
     </Card>
   )
 }
+
+export default Cobandments

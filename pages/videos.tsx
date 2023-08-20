@@ -3,7 +3,7 @@ import {Card, CardContent, Divider, Typography, Box} from "@mui/material";
 
 export type VideoProps = {}
 
-export const Video: React.FC<VideoProps> = ({}) => {
+const Videos: React.FC<VideoProps> = ({}) => {
 
   return (
     <Card>
@@ -32,3 +32,5 @@ export const Video: React.FC<VideoProps> = ({}) => {
     </Card>
   )
 }
+
+export default Videos

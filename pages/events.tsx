@@ -1,10 +1,10 @@
 import React from 'react'
 import {Card, CardContent, Divider, Typography, Link, Box} from "@mui/material";
-import {Event} from './Event'
+import {Event} from '../components/Event'
 
 export type EventsProps = {}
 
-export const Events: React.FC<EventsProps> = ({}) => {
+const Events: React.FC<EventsProps> = ({}) => {
 
   return (
     <Card>
@@ -48,3 +48,5 @@ export const Events: React.FC<EventsProps> = ({}) => {
     </Card>
   )
 }
+
+export default Events

@@ -6,13 +6,13 @@ import Spotify from '../public/images/spotify.png'
 import YouTube from '../public/images/youtube.png'
 import Soundcloud from '../public/images/soundcloud.png'
 import Bandcamp from '../public/images/bandcamp.png'
-import {CardLink} from "./CardLink";
+import {CardLink} from "../components/CardLink";
 
 const imageHeight = 45
 
 export type SocialProps = {}
 
-export const Social: React.FC<SocialProps> = ({}) => {
+const Social: React.FC<SocialProps> = ({}) => {
 
   return (
     <Grid
@@ -44,7 +44,7 @@ export const Social: React.FC<SocialProps> = ({}) => {
           <Image
             height={imageHeight}
             src={Soundcloud}
-            alt='Soundcloud'
+            alt='Audios'
           />
         </CardLink>
       </Grid>
@@ -69,3 +69,5 @@ export const Social: React.FC<SocialProps> = ({}) => {
     </Grid>
   )
 }
+
+export default Social

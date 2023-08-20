@@ -1,10 +1,10 @@
 import React from 'react'
-import {Soundcloud} from "./Soundcloud";
-import {Video} from "./Video";
-import {Events} from "./Events";
+import Audios from "../pages/audios";
+import Videos from "../pages/videos";
+import Events from "../pages/events";
 import Photos from "../pages/photos";
-import {Cobandments} from "./Cobandments";
-import {Social} from "./Social";
+import Cobandments from "../pages/cobandments";
+import Social from "../pages/social";
 
 export type Page = {
   name: string,
@@ -14,8 +14,8 @@ export type Page = {
 export const Pages: Record<string, () => React.ReactElement> = {
   'social'     : () => (<Social />),
   'events'     : () => (<Events />),
-  'audios'     : () => (<Soundcloud />),
-  'videos'     : () => (<Video />),
+  'audios'     : () => (<Audios />),
+  'videos'     : () => (<Videos />),
   'photos'     : () => (<Photos />),
   'cobandments': () => (<Cobandments />)
 }

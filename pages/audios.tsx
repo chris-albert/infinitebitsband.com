@@ -3,7 +3,7 @@ import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
 
 export type SoundcloudProps = {}
 
-export const Soundcloud: React.FC<SoundcloudProps> = ({}) => {
+const Audios: React.FC<SoundcloudProps> = ({}) => {
 
   return (
     <Card>
@@ -21,9 +21,11 @@ export const Soundcloud: React.FC<SoundcloudProps> = ({}) => {
           scrolling="no"
           frameBorder="no"
           allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1632291169&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+          src="https://w.soundcloud.com/player/audios.tsx?url=https%3A//api.soundcloud.com/playlists/1632291169&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
         />
       </CardContent>
     </Card>
   )
 }
+
+export default Audios
