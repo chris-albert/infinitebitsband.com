@@ -17,6 +17,12 @@ export const Events: React.FC<EventsProps> = ({}) => {
           </Typography>
         </Divider>
         {/*<Divider sx={{mb: 2}}/>*/}
+        No upcoming events :(
+        <Divider textAlign="center" sx={{mb: 2, mt: 2}}>
+          <Typography variant="h6" component="div" >
+            past
+          </Typography>
+        </Divider>
         <Event
           date='july 15 2023 8pm'
           venue='the bistro'
@@ -32,11 +38,6 @@ export const Events: React.FC<EventsProps> = ({}) => {
               referrerPolicy="no-referrer-when-downgrade"></iframe>
           </Box>
         </Event>
-        <Divider textAlign="center" sx={{mb: 2, mt: 2}}>
-          <Typography variant="h6" component="div" >
-            past
-          </Typography>
-        </Divider>
         <Event
           date='may 20 2023 8pm'
           venue='magarian basement'
