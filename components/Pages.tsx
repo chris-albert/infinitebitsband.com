@@ -2,7 +2,7 @@ import React from 'react'
 import {Soundcloud} from "./Soundcloud";
 import {Video} from "./Video";
 import {Events} from "./Events";
-import {Photos} from "./Photos";
+import Photos from "../pages/photos";
 import {Cobandments} from "./Cobandments";
 import {Social} from "./Social";
 

@@ -9,7 +9,7 @@ import LogoVert from '../public/images/logo-vert-20-neg.png'
 
 export type PhotosProps = {}
 
-export const Photos: React.FC<PhotosProps> = ({}) => {
+const Photos: React.FC<PhotosProps> = ({}) => {
 
   return (
     <Card>
@@ -74,3 +74,7 @@ export const Photos: React.FC<PhotosProps> = ({}) => {
     </Card>
   )
 }
+
+export default Photos
+
+// export const getStaticProps = () => {}
