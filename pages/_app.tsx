@@ -7,6 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import {Layout} from "../components/Layout";
 
 import "@fontsource/roboto-mono/600.css";
+import "../components/styles/App.css"
 
 export const blue = 'rgb(16, 81, 145)'
 export const pink = 'rgb(143, 19, 66)'

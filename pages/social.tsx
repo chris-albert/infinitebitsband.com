@@ -1,11 +1,11 @@
 import React from 'react'
 import {Grid} from "@mui/material";
 import Image from 'next/image'
-import Instagram from '../public/images/instagram.png'
-import Spotify from '../public/images/spotify.png'
-import YouTube from '../public/images/youtube.png'
-import Soundcloud from '../public/images/soundcloud.png'
-import Bandcamp from '../public/images/bandcamp.png'
+import Instagram from '../public/images/social/instagram.png'
+import Spotify from '../public/images/social/spotify.png'
+import YouTube from '../public/images/social/youtube.png'
+import Soundcloud from '../public/images/social/soundcloud.png'
+import Bandcamp from '../public/images/social/bandcamp.png'
 import {CardLink} from "../components/CardLink";
 
 const imageHeight = 45
@@ -40,7 +40,7 @@ const Social: React.FC<SocialProps> = ({}) => {
         </CardLink>
       </Grid>
       <Grid item>
-        <CardLink sx={{pr: 2}} href={'https://soundcloud.com/infinite-bits'}>
+        <CardLink href={'https://soundcloud.com/infinite-bits'}>
           <Image
             height={imageHeight}
             src={Soundcloud}
@@ -49,7 +49,7 @@ const Social: React.FC<SocialProps> = ({}) => {
         </CardLink>
       </Grid>
       <Grid item>
-        <CardLink sx={{pr: 2}} href={'https://infinitebits.bandcamp.com/album/infinite-bits-ep'}>
+        <CardLink href={'https://infinitebits.bandcamp.com/album/infinite-bits-ep'}>
           <Image
             height={imageHeight}
             src={Bandcamp}
