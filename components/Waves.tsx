@@ -15,7 +15,7 @@ export const Waves: React.FC<WavesProps> = ({}) => {
 
     return () => {
       if(wavesurfer.current) {
-        wavesurfer.current.destroy()
+        // wavesurfer.current.destroy()
       }
     }
   }, [])
@@ -33,7 +33,7 @@ export const Waves: React.FC<WavesProps> = ({}) => {
         container: wavesurfer.current,
     })
     wavesurfer.current = ws
-    wavesurfer.current.load('/sound/Night Moves.wav')
+    // wavesurfer.current.load('/sound/Night Moves.wav')
   }
 
   return (
