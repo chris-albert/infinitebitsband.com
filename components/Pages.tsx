@@ -6,6 +6,7 @@ import Photos from "../pages/photos";
 import Cobandments from "../pages/cobandments";
 import Social from "../pages/social";
 import Canvas from "../pages/canvas";
+import {Email} from "./Email";
 
 export type Page = {
   name: string,
@@ -17,6 +18,7 @@ export const Pages: Record<string, () => React.ReactElement> = {
   // 'events'     : () => (<Events />),
   'audios'     : () => (<Audios />),
   'videos'     : () => (<Videos />),
+  'emails'     : () => (<Email />)
   // 'photos'     : () => (<Photos />),
   // 'cobandments': () => (<Cobandments />),
   // 'visualizations': () => (<Canvas />),
