@@ -11,23 +11,25 @@ import _ from 'lodash'
 import {Pages} from "./Pages";
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 
-export type NavProps = {}
+export type NavProps = {
+  scrollTrigger: boolean
+}
 
-export const Nav: React.FC<NavProps> = ({}) => {
+export const Nav: React.FC<NavProps> = ({scrollTrigger}) => {
 
   const router = useRouter()
   const [navOpen, setNavOpen] = React.useState(false)
 
   const showHamburger = false
 
-  const a = useScrollTrigger({threshold: 300})
+  // const scrollTrigger = useScrollTrigger({threshold: 300})
 
   return (
     <AppBar
       // position="sticky"
       enableColorOnDark={true}
       color='secondary'
-      sx={!a ? {
+      sx={!scrollTrigger ? {
         backgroundColor: 'transparent',
         backgroundImage: 'none',
         boxShadow: 'none'

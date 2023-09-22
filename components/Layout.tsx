@@ -3,6 +3,7 @@ import {Box, Grid} from "@mui/material";
 import {Container} from "@mui/system";
 import {Nav} from "./Nav";
 import {ResponsiveCenterItem} from "./ResponsiveCenterItem";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
 
 const bannerStyle: React.CSSProperties = {
   objectFit: 'cover',
@@ -16,13 +17,16 @@ export type LayoutProps = {
 
 export const Layout: React.FC<LayoutProps> = ({children}) => {
 
+  const scrollTrigger = useScrollTrigger({threshold: 100})
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Nav />
+      <Nav scrollTrigger={scrollTrigger} />
       <Box
         sx={{
           position: 'relative',
-          width: '100%'
+          width: '100%',
+          zIndex: 0
         }}
       >
         <img
@@ -32,7 +36,13 @@ export const Layout: React.FC<LayoutProps> = ({children}) => {
         />
       </Box>
 
-      <Container>
+      <Container
+        sx={!scrollTrigger ? {
+          mt: '-75px',
+          zIndex: 100,
+          position: 'relative'
+        }: {}}
+      >
         <Box sx={{py: 1}}/>
         <Grid container spacing={0} >
           <ResponsiveCenterItem>
