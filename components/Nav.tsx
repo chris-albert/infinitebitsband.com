@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link'
 import Image from "next/image";
 // import headerLogo from "../public/images/logo-long-20.png"
-import headerLogo from "../public/images/logos/main-big-0.png"
+import headerLogo from "../public/images/logos/logo-new-3.png"
 import { useRouter } from 'next/router'
 import _ from 'lodash'
 import {Pages} from "./Pages";
