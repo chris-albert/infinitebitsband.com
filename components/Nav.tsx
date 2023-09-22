@@ -9,6 +9,7 @@ import headerLogo from "../public/images/logos/logo-new-3.png"
 import { useRouter } from 'next/router'
 import _ from 'lodash'
 import {Pages} from "./Pages";
+import useScrollTrigger from '@mui/material/useScrollTrigger'
 
 export type NavProps = {}
 
@@ -19,11 +20,18 @@ export const Nav: React.FC<NavProps> = ({}) => {
 
   const showHamburger = false
 
+  const a = useScrollTrigger({threshold: 300})
+
   return (
     <AppBar
-      position="sticky"
+      // position="sticky"
       enableColorOnDark={true}
       color='secondary'
+      sx={!a ? {
+        backgroundColor: 'transparent',
+        backgroundImage: 'none',
+        boxShadow: 'none'
+      }: {}}
     >
       <Toolbar>
         <Drawer
