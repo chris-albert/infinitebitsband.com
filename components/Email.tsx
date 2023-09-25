@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
+import {Box, Card, CardContent, Divider, TextField, Typography} from "@mui/material";
 
 const rawSignupHtml = '<div id="mc_embed_shell">\n' +
   '      <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">\n' +
@@ -46,6 +46,10 @@ export const Email: React.FC<EmailProps> = ({}) => {
             emails
           </Typography>
         </Divider>
+        <Typography sx={{ml: 3}}>For booking, email us at
+        &#105;&#110;&#102;&#105;&#110;&#105;&#116;&#101;&#098;&#105;&#116;&#115;&#098;&#097;&#110;&#100;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;
+        </Typography>
+
         <Box>
           { <div dangerouslySetInnerHTML={{ __html: rawSignupHtml }} /> }
         </Box>
