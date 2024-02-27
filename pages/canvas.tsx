@@ -23,12 +23,12 @@ const canvas: React.FC<CanvasProps> = ({}) => {
     {
       label: 'Waveforms',
       body: () => <Waveform
-        url={'/sound/Night Moves.wav'}
+        url={'/media/3 - Come Find Me.wav'}
       />
     },
     {
       label: 'Simple Domain',
-      body: () => <SimpleDomain />
+      body: () => <SimpleDomain url={'/media/3 - Come Find Me.wav'} />
     },
     {
       label: 'Points',

@@ -17,7 +17,21 @@ const Events: React.FC<EventsProps> = ({}) => {
           </Typography>
         </Divider>
         {/*<Divider sx={{mb: 2}}/>*/}
-        No upcoming events :(
+        <Event
+          date='march 3 2024 2pm'
+          venue='ocaean ale house'
+          location='1314 Ocean Ave'
+        >
+          <Box sx={{mb: 2}}>
+            <Link href="https://oceanalehouse.com/">oceanalehouse.com</Link>
+          </Box>
+          <Box>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12623.222602770975!2d-122.4567663!3d37.7242395!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7dd2928536ff%3A0xcd07c83f8c7aef04!2sOcean%20Ale%20House!5e0!3m2!1sen!2sus!4v1709077929486!5m2!1sen!2sus"
+              width="600" height="450" loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"></iframe>
+          </Box>
+        </Event>
         <Divider textAlign="center" sx={{mb: 2, mt: 2}}>
           <Typography variant="h6" component="div" >
             past

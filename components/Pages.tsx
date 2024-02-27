@@ -15,7 +15,7 @@ export type Page = {
 
 export const Pages: Record<string, () => React.ReactElement> = {
   'social'     : () => (<Social />),
-  // 'events'     : () => (<Events />),
+  'events'     : () => (<Events />),
   'audios'     : () => (<Audios />),
   'videos'     : () => (<Videos />),
   'emails'     : () => (<Email />)
