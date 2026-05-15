@@ -1,0 +1,330 @@
+import React from 'react';
+import dynamic from 'next/dynamic';
+import { BAND, PALETTES } from '../lib/content';
+
+const Oscilloscope = dynamic(() => import('./visualizers/Oscilloscope'), { ssr: false });
+const SpectrumBars = dynamic(() => import('./visualizers/SpectrumBars'), { ssr: false });
+const MiniWave = dynamic(() => import('./visualizers/MiniWave'), { ssr: false });
+
+const palette = PALETTES.cosmic;
+const speed = 1;
+const density = 4;
+const accent = palette[Math.floor(palette.length / 2) + 1]; // #7ec8e3
+const warm = palette[palette.length - 2]; // #e76f51
+
+export default function HomePage() {
+  const css = `
+    .c-root { --bg: #07080a; --panel: #0e1014; --fg: #e8e6e1; --dim: #7a7872; --line: rgba(255,255,255,0.08);
+      --line-bright: rgba(255,255,255,0.18);
+      background: var(--bg); color: var(--fg); font-family: 'JetBrains Mono', ui-monospace, monospace;
+      width: 100%; min-height: 100vh; font-size: 13px;
+      padding: 16px;
+    }
+    .c-rack { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+
+    .c-panel { background: var(--panel); border: 1px solid var(--line); position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .c-bar { display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 12px; border-bottom: 1px solid var(--line);
+      font-size: 9px; letter-spacing: 0.28em; color: var(--dim);
+      background: rgba(255,255,255,0.02);
+    }
+    .c-bar .id { color: var(--fg); }
+    .c-bar .leds { display: flex; gap: 4px; }
+    .c-bar .led { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+    .c-bar .led.on { background: ${accent}; box-shadow: 0 0 6px ${accent}; }
+    .c-bar .led.warm { background: ${warm}; box-shadow: 0 0 6px ${warm}; }
+    .c-body { padding: 16px; flex: 1; position: relative; }
+
+    /* HERO PANEL */
+    .c-hero { grid-column: span 12; height: 540px; }
+    .c-hero .c-body { padding: 0; }
+    .c-hero .scope { position: absolute; inset: 0; }
+    .c-hero .gridlines { position: absolute; inset: 0; pointer-events: none; opacity: 0.06;
+      color: ${accent};
+      background:
+        repeating-linear-gradient(0deg, transparent 0 60px, currentColor 60px 61px),
+        repeating-linear-gradient(90deg, transparent 0 60px, currentColor 60px 61px);
+    }
+    .c-hero .vignette { position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(7,8,10,0.7) 95%);
+    }
+    .c-hero .center { position: absolute; inset: 0; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; gap: 24px; padding: 0 80px; pointer-events: none;
+    }
+    .c-hero .center img { width: 100%; max-width: 960px; height: auto; filter: drop-shadow(0 0 30px rgba(0,0,0,0.6)); }
+    .c-hero .center .sub { font-size: 11px; letter-spacing: 0.5em; color: var(--dim); }
+    .c-hero .corners { position: absolute; inset: 16px; pointer-events: none; }
+    .c-hero .corner { position: absolute; width: 18px; height: 18px; border: 1px solid ${accent}; }
+    .c-hero .corner.tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+    .c-hero .corner.tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+    .c-hero .corner.bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+    .c-hero .corner.br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+    .c-hero .ticker { position: absolute; bottom: 12px; left: 12px; right: 12px;
+      display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 0.2em; color: var(--dim);
+    }
+    .c-hero .ticker .blink { color: ${accent}; animation: cblink 1s steps(2) infinite; }
+    @keyframes cblink { 50% { opacity: 0; } }
+
+    /* LP COVER PANEL */
+    .c-cover { grid-column: span 4; align-self: start; }
+    .c-cover .c-body { padding: 0; aspect-ratio: 1; }
+    .c-cover .c-body img { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+
+    /* TRACKS PANEL */
+    .c-tracks { grid-column: span 8; grid-row: span 2; }
+    .c-tracks .c-body { padding: 8px 0; }
+    .c-side-divider { display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px 8px; font-size: 10px; letter-spacing: 0.32em; color: var(--dim);
+    }
+    .c-side-divider .lbl { color: ${accent}; font-weight: 500; }
+    .c-side-divider .rule { flex: 1; height: 1px; background: var(--line); }
+    .c-side-divider .meta { color: var(--dim); }
+    .c-track { display: grid; grid-template-columns: 36px 1fr 140px 60px;
+      gap: 14px; padding: 11px 16px; align-items: center; border-bottom: 1px solid var(--line);
+      cursor: pointer; transition: background 120ms;
+    }
+    .c-track:last-child { border-bottom: 0; }
+    .c-track:hover { background: rgba(255,255,255,0.04); }
+    .c-track .n { color: var(--dim); font-size: 10px; letter-spacing: 0.2em; }
+    .c-track .t { font-size: 13px; letter-spacing: 0.02em; }
+    .c-track .w { height: 22px; }
+    .c-track .d { color: var(--dim); font-size: 10px; text-align: right; letter-spacing: 0.1em; }
+    .c-track:hover .t { color: ${accent}; }
+
+    /* SPECTRUM PANEL */
+    .c-spec { grid-column: span 4; }
+    .c-spec .c-body { padding: 8px; height: 240px; }
+    .c-spec .c-body > div { width: 100%; height: 100%; }
+
+    /* SHOWS PANEL */
+    .c-shows { grid-column: span 8; }
+    .c-shows .c-body { padding: 0; }
+    .c-show-list { display: flex; flex-direction: column; }
+    .c-show { display: grid; grid-template-columns: 130px 1fr 1fr 110px;
+      gap: 16px; padding: 18px 16px; align-items: center; border-bottom: 1px solid var(--line);
+      cursor: pointer; transition: background 160ms;
+    }
+    .c-show:last-child { border-bottom: 0; }
+    .c-show:hover { background: rgba(255,255,255,0.04); }
+    .c-show .date { font-size: 13px; letter-spacing: 0.1em; color: ${accent}; }
+    .c-show .date .time { display: block; color: var(--dim); font-size: 10px; margin-top: 3px; }
+    .c-show .venue { font-size: 14px; letter-spacing: 0.05em; }
+    .c-show .city { color: var(--dim); font-size: 11px; letter-spacing: 0.1em; }
+    .c-show .tix { font-size: 10px; letter-spacing: 0.25em; padding: 7px 10px;
+      border: 1px solid var(--line); color: var(--dim); text-align: center; transition: all 200ms;
+    }
+    .c-show:hover .tix { border-color: ${accent}; color: ${accent}; }
+
+    .c-past-block { padding: 14px 16px; border-top: 1px solid var(--line); background: rgba(255,255,255,0.015); }
+    .c-past-block .h { font-size: 9px; letter-spacing: 0.3em; color: var(--dim); margin-bottom: 10px; }
+    .c-past { display: grid; grid-template-columns: 100px 1fr 1fr; gap: 14px;
+      padding: 6px 0; font-size: 11px; color: var(--dim);
+    }
+    .c-past .v { color: var(--fg); letter-spacing: 0.03em; }
+
+    /* MAP / BOOKING PANEL */
+    .c-book { grid-column: span 4; }
+    .c-book .c-body { display: flex; flex-direction: column; gap: 18px; padding: 22px; }
+    .c-book .h { font-family: 'Orbitron', monospace; font-size: 26px; font-weight: 600; letter-spacing: 0.05em; }
+    .c-book .p { font-size: 12px; line-height: 1.6; color: var(--dim); }
+    .c-book .email { padding: 14px 16px; border: 1px solid var(--line); display: flex; justify-content: space-between;
+      align-items: center; cursor: pointer; transition: all 200ms; text-decoration: none; color: var(--fg);
+      font-size: 12px; letter-spacing: 0.1em;
+    }
+    .c-book .email:hover { border-color: ${accent}; color: ${accent}; }
+    .c-book .coords { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 10px; letter-spacing: 0.15em; }
+    .c-book .coord { display: flex; flex-direction: column; gap: 3px; padding: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--line); }
+    .c-book .coord .k { color: var(--dim); font-size: 9px; letter-spacing: 0.3em; }
+
+    /* SOCIALS */
+    .c-soc { grid-column: span 12; }
+    .c-soc .c-body { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); padding: 0; }
+    .c-social { background: var(--panel); padding: 26px; display: flex; flex-direction: column; gap: 6px;
+      text-decoration: none; color: var(--fg); transition: background 200ms; position: relative; min-height: 140px;
+    }
+    .c-social:hover { background: rgba(255,255,255,0.04); }
+    .c-social .glyph { font-family: 'Orbitron', monospace; font-weight: 800; font-size: 36px; letter-spacing: 0.04em;
+      color: transparent;
+      background: linear-gradient(135deg, ${palette[0]}, ${warm});
+      -webkit-background-clip: text; background-clip: text;
+    }
+    .c-social .name { font-size: 11px; letter-spacing: 0.2em; margin-top: 16px; }
+    .c-social .handle { font-size: 10px; letter-spacing: 0.08em; color: var(--dim); }
+    .c-social .arr { position: absolute; top: 22px; right: 22px; color: var(--dim);
+      transition: transform 200ms, color 200ms;
+    }
+    .c-social:hover .arr { transform: translate(3px, -3px); color: ${accent}; }
+
+    /* FOOT */
+    .c-foot { grid-column: span 12; padding: 32px 16px 16px; display: flex; justify-content: space-between;
+      font-size: 10px; letter-spacing: 0.22em; color: var(--dim);
+    }
+  `;
+
+  return (
+    <div className="c-root">
+      <style>{css}</style>
+      <div className="c-rack">
+
+        {/* HERO */}
+        <div className="c-panel c-hero">
+          <div className="c-bar">
+            <div><span className="id">CH\u00b701</span> &nbsp; / &nbsp; HERO_BUS</div>
+            <div className="leds">
+              <div className="led on" /><div className="led on" /><div className="led warm" /><div className="led" />
+            </div>
+            <div>44.1kHz \u00b7 24bit</div>
+          </div>
+          <div className="c-body">
+            <div className="scope">
+              <Oscilloscope palette={palette} speed={speed} density={density} glow />
+            </div>
+            <div className="gridlines" />
+            <div className="vignette" />
+            <div className="corners">
+              <div className="corner tl" /><div className="corner tr" />
+              <div className="corner bl" /><div className="corner br" />
+            </div>
+            <div className="center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/wordmark-keyed.png" alt="INFINITE BITS" />
+              <div className="sub">A L G O R I T H M I C &nbsp; B A N D &nbsp; \u00b7 &nbsp; S F</div>
+            </div>
+            <div className="ticker">
+              <div>CH.01 \u00b7 WAVEFORM MONITOR</div>
+              <div>\u25cf <span style={{ color: accent }}>SIGNAL LOCK</span> &nbsp; LIVE</div>
+              <div>BPM 92 \u00b7 KEY A\u00b7MIN \u00b7 <span className="blink">\u25b8</span></div>
+            </div>
+          </div>
+        </div>
+
+        {/* CHANNELS */}
+        <div className="c-panel c-soc">
+          <div className="c-bar"><div><span className="id">CH\u00b702</span> \u00b7 OUTBOUND CHANNELS</div><div>5 ENDPOINTS</div></div>
+          <div className="c-body">
+            {BAND.socials.map(s => (
+              <a className="c-social" href={s.url} target="_blank" rel="noreferrer" key={s.name}>
+                <div className="glyph">{s.glyph}</div>
+                <div className="name">{s.name.toUpperCase()}</div>
+                <div className="handle">{s.handle}</div>
+                <div className="arr">\u2197</div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* RELEASE ROW: COVER / TRACKS */}
+        <div className="c-panel c-cover">
+          <div className="c-bar"><div><span className="id">CH\u00b703</span> \u00b7 ART</div><div>2200\u00d72200</div></div>
+          <div className="c-body">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={BAND.lp.cover} alt={BAND.lp.title} />
+          </div>
+        </div>
+
+        <div className="c-panel c-tracks">
+          <div className="c-bar">
+            <div><span className="id">CH\u00b704</span> \u00b7 TRACKLIST</div>
+            <div>{BAND.lp.tracks.length} TRACKS \u00b7 {BAND.lp.runtime}</div>
+          </div>
+          <div className="c-body">
+            {BAND.lp.tracks.map((t, i) => {
+              const prev = BAND.lp.tracks[i - 1];
+              const showDivider = !prev || prev.side !== t.side;
+              return (
+                <React.Fragment key={t.n}>
+                  {showDivider && (
+                    <div className="c-side-divider">
+                      <span className="lbl">SIDE {t.side}</span>
+                      <span className="rule" />
+                      <span className="meta">
+                        {BAND.lp.tracks.filter(x => x.side === t.side).length} TRACKS
+                      </span>
+                    </div>
+                  )}
+                  <div className="c-track">
+                    <div className="n">{t.n}</div>
+                    <div className="t">{t.title}</div>
+                    <div className="w"><MiniWave palette={palette} speed={speed} seed={t.seed} height={22} /></div>
+                    <div className="d">{t.dur}</div>
+                  </div>
+                </React.Fragment>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* SPECTRUM (under cover) */}
+        <div className="c-panel c-spec">
+          <div className="c-bar">
+            <div><span className="id">CH\u00b705</span> \u00b7 FFT \u00b7 64 BIN</div>
+            <div className="leds">
+              <div className="led on" /><div className="led on" /><div className="led warm" />
+            </div>
+            <div>-12 / 0 dB</div>
+          </div>
+          <div className="c-body">
+            <div><SpectrumBars palette={palette} speed={speed} bins={64} mode="rainbow" /></div>
+          </div>
+        </div>
+
+        {/* SHOWS + BOOKING */}
+        <div className="c-panel c-shows">
+          <div className="c-bar">
+            <div><span className="id">CH\u00b706</span> \u00b7 LIVE SCHEDULE</div>
+            <div>{BAND.shows.upcoming.length} UPCOMING / {BAND.shows.past.length} ARCHIVED</div>
+          </div>
+          <div className="c-body">
+            <div className="c-show-list">
+              {BAND.shows.upcoming.map(s => (
+                <div className="c-show" key={s.date}>
+                  <div className="date">{s.date}<span className="time">{s.time}</span></div>
+                  <div className="venue">{s.venue}</div>
+                  <div className="city">{s.city}</div>
+                  <div className="tix">{s.tix!.toUpperCase()} \u2192</div>
+                </div>
+              ))}
+            </div>
+            <div className="c-past-block">
+              <div className="h">\u25b8 ARCHIVE</div>
+              {BAND.shows.past.map(s => (
+                <div className="c-past" key={s.date + s.venue}>
+                  <div>{s.date}</div>
+                  <div className="v">{s.venue}</div>
+                  <div>{s.city}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="c-panel c-book">
+          <div className="c-bar"><div><span className="id">CH\u00b707</span> \u00b7 BOOKING</div><div>INBOUND</div></div>
+          <div className="c-body">
+            <div className="h">Book the<br/>signal.</div>
+            <div className="p">For live dates, festivals, and other transmissions — write us. We will reply within one phrase.</div>
+            <a href={`mailto:${BAND.booking}`} className="email">
+              <span>{BAND.booking}</span>
+              <span style={{ color: accent }}>\u2192</span>
+            </a>
+            <div className="coords">
+              <div className="coord"><div className="k">LAT</div><div>37.7596 N</div></div>
+              <div className="coord"><div className="k">LON</div><div>122.4346 W</div></div>
+              <div className="coord"><div className="k">TZ</div><div>PST \u00b7 UTC\u22128</div></div>
+              <div className="coord"><div className="k">EST</div><div>2022</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="c-foot">
+          <div>\u00a9 INFINITE BITS \u00b7 2025</div>
+          <div>SAN FRANCISCO \u00b7 CA</div>
+          <div>NO COOKIES \u00b7 NO TRACKING \u00b7 NO LATENCY</div>
+        </div>
+
+      </div>
+    </div>
+  );
+}

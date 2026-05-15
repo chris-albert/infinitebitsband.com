@@ -1,14 +1,5 @@
-import { GetStaticProps } from 'next'
-import {Home} from '../components/Home'
+import HomePage from '../components/HomePage';
 
-export default function Index({}) {
-  return (
-    <Home />
-  )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {}
-  }
+export default function Index() {
+  return <HomePage />;
 }
