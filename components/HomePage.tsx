@@ -161,6 +161,94 @@ export default function HomePage() {
     .c-foot { grid-column: span 12; padding: 32px 16px 16px; display: flex; justify-content: space-between;
       font-size: 10px; letter-spacing: 0.22em; color: var(--dim);
     }
+
+    /* ---- TABLET (768–1199px) ---- */
+    @media (max-width: 1199px) {
+      .c-root { padding: 10px; }
+      .c-rack { gap: 10px; }
+
+      .c-hero { height: 380px; }
+      .c-hero .center { padding: 0 40px; }
+
+      .c-cover { grid-column: span 12; }
+      .c-cover .c-body { aspect-ratio: auto; max-height: 400px; }
+      .c-tracks { grid-column: span 12; grid-row: span 1; }
+      .c-spec { grid-column: span 12; }
+      .c-spec .c-body { height: 180px; }
+      .c-shows { grid-column: span 12; }
+      .c-book { grid-column: span 12; }
+
+      .c-soc .c-body { grid-template-columns: repeat(3, 1fr); }
+      .c-social { min-height: 120px; padding: 20px; }
+      .c-social .glyph { font-size: 28px; }
+    }
+
+    /* ---- MOBILE (<768px) ---- */
+    @media (max-width: 767px) {
+      .c-root { padding: 6px; font-size: 12px; }
+      .c-rack { gap: 6px; }
+
+      /* Hero */
+      .c-hero { height: 280px; }
+      .c-hero .center { padding: 0 20px; gap: 14px; }
+      .c-hero .center .sub { font-size: 8px; letter-spacing: 0.3em; }
+      .c-hero .corners { inset: 8px; }
+      .c-hero .corner { width: 12px; height: 12px; }
+      .c-hero .ticker { font-size: 7px; letter-spacing: 0.1em; bottom: 6px; left: 6px; right: 6px; }
+
+      /* Bar labels */
+      .c-bar { padding: 6px 8px; font-size: 7px; letter-spacing: 0.15em; }
+
+      /* Socials — single column */
+      .c-soc .c-body { grid-template-columns: repeat(2, 1fr); }
+      .c-social { min-height: 100px; padding: 16px; }
+      .c-social .glyph { font-size: 24px; }
+      .c-social .name { font-size: 9px; margin-top: 10px; }
+      .c-social .handle { font-size: 8px; }
+
+      /* Cover + Tracks — full width, stacked */
+      .c-cover { grid-column: span 12; }
+      .c-cover .c-body { aspect-ratio: 1; max-height: none; }
+      .c-tracks { grid-column: span 12; grid-row: span 1; }
+
+      /* Track row — hide waveform on mobile */
+      .c-track { grid-template-columns: 28px 1fr 50px; gap: 8px; padding: 9px 10px; }
+      .c-track .w { display: none; }
+      .c-track .t { font-size: 12px; }
+      .c-track .n { font-size: 9px; }
+      .c-track .d { font-size: 9px; }
+      .c-side-divider { padding: 10px 10px 6px; font-size: 9px; }
+
+      /* Spectrum */
+      .c-spec { grid-column: span 12; }
+      .c-spec .c-body { height: 160px; }
+
+      /* Shows — stack vertically */
+      .c-shows { grid-column: span 12; }
+      .c-show { grid-template-columns: 1fr; gap: 6px; padding: 14px 12px; }
+      .c-show .date { font-size: 12px; }
+      .c-show .date .time { display: inline; margin-top: 0; margin-left: 8px; }
+      .c-show .venue { font-size: 13px; }
+      .c-show .city { font-size: 10px; }
+      .c-show .tix { justify-self: start; padding: 5px 8px; font-size: 9px; }
+
+      /* Past shows — compact 2-col */
+      .c-past { grid-template-columns: 90px 1fr; gap: 8px; font-size: 10px; }
+      .c-past-block { padding: 10px 12px; }
+
+      /* Booking */
+      .c-book { grid-column: span 12; }
+      .c-book .c-body { padding: 16px; gap: 14px; }
+      .c-book .h { font-size: 20px; }
+      .c-book .p { font-size: 11px; }
+      .c-book .email { font-size: 10px; padding: 12px; }
+      .c-book .coords { font-size: 9px; }
+
+      /* Footer — stack */
+      .c-foot { flex-direction: column; gap: 8px; align-items: center; text-align: center;
+        padding: 20px 12px 12px; font-size: 9px;
+      }
+    }
   `;
 
   return (
