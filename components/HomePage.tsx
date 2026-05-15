@@ -253,7 +253,7 @@ export default function HomePage() {
 
   return (
     <div className="c-root">
-      <style>{css}</style>
+      <style dangerouslySetInnerHTML={{ __html: css }} />
       <div className="c-rack">
 
         {/* HERO */}
