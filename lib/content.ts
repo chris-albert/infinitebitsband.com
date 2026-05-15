@@ -23,11 +23,11 @@ export type Social = {
 
 export const BAND = {
   name: 'INFINITE BITS',
-  tagline: 'algorithmic band \u00b7 san francisco \u00b7 ',
+  tagline: 'algorithmic band · san francisco · ',
   origin: 'SAN FRANCISCO, CA',
   lp: {
     title: 'PHASES',
-    subtitle: 'LP \u00b7 2025',
+    subtitle: 'LP · 2025',
     cover: '/images/phases-cover.jpg',
     year: '2025',
     runtime: '39:02',
@@ -47,8 +47,8 @@ export const BAND = {
   },
   shows: {
     upcoming: [
-      { date: 'TBD',         time: '\u2014',   venue: 'ALBUM RELEASE',    city: 'San Francisco, CA', tix: 'soon' },
-      { date: 'JUN 20 2026', time: '\u2014',   venue: 'NORTH BEACH FEST', city: 'San Francisco, CA', tix: 'rsvp' },
+      { date: 'TBD',         time: '—',   venue: 'ALBUM RELEASE',    city: 'San Francisco, CA', tix: 'soon' },
+      { date: 'JUN 20 2026', time: '—',   venue: 'NORTH BEACH FEST', city: 'San Francisco, CA', tix: 'rsvp' },
     ] as Show[],
     past: [
       { date: 'AUG 12 2025', venue: 'BOOM BOOM ROOM',     city: 'San Francisco, CA' },

@@ -171,11 +171,11 @@ export default function HomePage() {
         {/* HERO */}
         <div className="c-panel c-hero">
           <div className="c-bar">
-            <div><span className="id">CH\u00b701</span> &nbsp; / &nbsp; HERO_BUS</div>
+            <div><span className="id">{"CH·01"}</span> &nbsp; / &nbsp; HERO_BUS</div>
             <div className="leds">
               <div className="led on" /><div className="led on" /><div className="led warm" /><div className="led" />
             </div>
-            <div>44.1kHz \u00b7 24bit</div>
+            <div>{"44.1kHz · 24bit"}</div>
           </div>
           <div className="c-body">
             <div className="scope">
@@ -190,26 +190,26 @@ export default function HomePage() {
             <div className="center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/wordmark-keyed.png" alt="INFINITE BITS" />
-              <div className="sub">A L G O R I T H M I C &nbsp; B A N D &nbsp; \u00b7 &nbsp; S F</div>
+              <div className="sub">{"A L G O R I T H M I C   B A N D   ·   S F"}</div>
             </div>
             <div className="ticker">
-              <div>CH.01 \u00b7 WAVEFORM MONITOR</div>
-              <div>\u25cf <span style={{ color: accent }}>SIGNAL LOCK</span> &nbsp; LIVE</div>
-              <div>BPM 92 \u00b7 KEY A\u00b7MIN \u00b7 <span className="blink">\u25b8</span></div>
+              <div>{"CH.01 · WAVEFORM MONITOR"}</div>
+              <div>{"●"} <span style={{ color: accent }}>SIGNAL LOCK</span> &nbsp; LIVE</div>
+              <div>{"BPM 92 · KEY A·MIN ·"} <span className="blink">{"▸"}</span></div>
             </div>
           </div>
         </div>
 
         {/* CHANNELS */}
         <div className="c-panel c-soc">
-          <div className="c-bar"><div><span className="id">CH\u00b702</span> \u00b7 OUTBOUND CHANNELS</div><div>5 ENDPOINTS</div></div>
+          <div className="c-bar"><div><span className="id">{"CH·02"}</span> {"·"} OUTBOUND CHANNELS</div><div>5 ENDPOINTS</div></div>
           <div className="c-body">
             {BAND.socials.map(s => (
               <a className="c-social" href={s.url} target="_blank" rel="noreferrer" key={s.name}>
                 <div className="glyph">{s.glyph}</div>
                 <div className="name">{s.name.toUpperCase()}</div>
                 <div className="handle">{s.handle}</div>
-                <div className="arr">\u2197</div>
+                <div className="arr">{"↗"}</div>
               </a>
             ))}
           </div>
@@ -217,7 +217,7 @@ export default function HomePage() {
 
         {/* RELEASE ROW: COVER / TRACKS */}
         <div className="c-panel c-cover">
-          <div className="c-bar"><div><span className="id">CH\u00b703</span> \u00b7 ART</div><div>2200\u00d72200</div></div>
+          <div className="c-bar"><div><span className="id">{"CH·03"}</span> {"·"} ART</div><div>{"2200×2200"}</div></div>
           <div className="c-body">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={BAND.lp.cover} alt={BAND.lp.title} />
@@ -226,8 +226,8 @@ export default function HomePage() {
 
         <div className="c-panel c-tracks">
           <div className="c-bar">
-            <div><span className="id">CH\u00b704</span> \u00b7 TRACKLIST</div>
-            <div>{BAND.lp.tracks.length} TRACKS \u00b7 {BAND.lp.runtime}</div>
+            <div><span className="id">{"CH·04"}</span> {"·"} TRACKLIST</div>
+            <div>{BAND.lp.tracks.length} TRACKS {"·"} {BAND.lp.runtime}</div>
           </div>
           <div className="c-body">
             {BAND.lp.tracks.map((t, i) => {
@@ -259,7 +259,7 @@ export default function HomePage() {
         {/* SPECTRUM (under cover) */}
         <div className="c-panel c-spec">
           <div className="c-bar">
-            <div><span className="id">CH\u00b705</span> \u00b7 FFT \u00b7 64 BIN</div>
+            <div><span className="id">{"CH·05"}</span> {"·"} FFT {"·"} 64 BIN</div>
             <div className="leds">
               <div className="led on" /><div className="led on" /><div className="led warm" />
             </div>
@@ -273,7 +273,7 @@ export default function HomePage() {
         {/* SHOWS + BOOKING */}
         <div className="c-panel c-shows">
           <div className="c-bar">
-            <div><span className="id">CH\u00b706</span> \u00b7 LIVE SCHEDULE</div>
+            <div><span className="id">{"CH·06"}</span> {"·"} LIVE SCHEDULE</div>
             <div>{BAND.shows.upcoming.length} UPCOMING / {BAND.shows.past.length} ARCHIVED</div>
           </div>
           <div className="c-body">
@@ -283,12 +283,12 @@ export default function HomePage() {
                   <div className="date">{s.date}<span className="time">{s.time}</span></div>
                   <div className="venue">{s.venue}</div>
                   <div className="city">{s.city}</div>
-                  <div className="tix">{s.tix!.toUpperCase()} \u2192</div>
+                  <div className="tix">{s.tix!.toUpperCase()} {"→"}</div>
                 </div>
               ))}
             </div>
             <div className="c-past-block">
-              <div className="h">\u25b8 ARCHIVE</div>
+              <div className="h">{"▸"} ARCHIVE</div>
               {BAND.shows.past.map(s => (
                 <div className="c-past" key={s.date + s.venue}>
                   <div>{s.date}</div>
@@ -301,27 +301,27 @@ export default function HomePage() {
         </div>
 
         <div className="c-panel c-book">
-          <div className="c-bar"><div><span className="id">CH\u00b707</span> \u00b7 BOOKING</div><div>INBOUND</div></div>
+          <div className="c-bar"><div><span className="id">{"CH·07"}</span> {"·"} BOOKING</div><div>INBOUND</div></div>
           <div className="c-body">
             <div className="h">Book the<br/>signal.</div>
             <div className="p">For live dates, festivals, and other transmissions — write us. We will reply within one phrase.</div>
             <a href={`mailto:${BAND.booking}`} className="email">
               <span>{BAND.booking}</span>
-              <span style={{ color: accent }}>\u2192</span>
+              <span style={{ color: accent }}>{"→"}</span>
             </a>
             <div className="coords">
               <div className="coord"><div className="k">LAT</div><div>37.7596 N</div></div>
               <div className="coord"><div className="k">LON</div><div>122.4346 W</div></div>
-              <div className="coord"><div className="k">TZ</div><div>PST \u00b7 UTC\u22128</div></div>
+              <div className="coord"><div className="k">TZ</div><div>{"PST · UTC−8"}</div></div>
               <div className="coord"><div className="k">EST</div><div>2022</div></div>
             </div>
           </div>
         </div>
 
         <div className="c-foot">
-          <div>\u00a9 INFINITE BITS \u00b7 2025</div>
-          <div>SAN FRANCISCO \u00b7 CA</div>
-          <div>NO COOKIES \u00b7 NO TRACKING \u00b7 NO LATENCY</div>
+          <div>{"© INFINITE BITS · 2025"}</div>
+          <div>{"SAN FRANCISCO · CA"}</div>
+          <div>{"NO COOKIES · NO TRACKING · NO LATENCY"}</div>
         </div>
 
       </div>
