@@ -1,10 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { BAND, PALETTES } from '../lib/content';
+import useSoundCloudPlayer, { formatTime } from '../hooks/useSoundCloudPlayer';
 
 const Oscilloscope = dynamic(() => import('./visualizers/Oscilloscope'), { ssr: false });
 const SpectrumBars = dynamic(() => import('./visualizers/SpectrumBars'), { ssr: false });
 const MiniWave = dynamic(() => import('./visualizers/MiniWave'), { ssr: false });
+const NowPlayingBar = dynamic(() => import('./NowPlayingBar'), { ssr: false });
 
 const palette = PALETTES.cosmic;
 const speed = 1;
@@ -13,12 +15,15 @@ const accent = palette[Math.floor(palette.length / 2) + 1]; // #7ec8e3
 const warm = palette[palette.length - 2]; // #e76f51
 
 export default function HomePage() {
+  const [player, controls] = useSoundCloudPlayer(BAND.lp.tracks);
+
   const css = `
     .c-root { --bg: #07080a; --panel: #0e1014; --fg: #e8e6e1; --dim: #7a7872; --line: rgba(255,255,255,0.08);
       --line-bright: rgba(255,255,255,0.18);
       background: var(--bg); color: var(--fg); font-family: 'JetBrains Mono', ui-monospace, monospace;
       width: 100%; min-height: 100vh; font-size: 13px;
       padding: 16px;
+      ${player.currentTrack ? 'padding-bottom: 64px;' : ''}
     }
     .c-rack { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
 
@@ -87,11 +92,28 @@ export default function HomePage() {
     }
     .c-track:last-child { border-bottom: 0; }
     .c-track:hover { background: rgba(255,255,255,0.04); }
-    .c-track .n { color: var(--dim); font-size: 10px; letter-spacing: 0.2em; }
+    .c-track .n { color: var(--dim); font-size: 10px; letter-spacing: 0.2em; position: relative; }
+    .c-track .n .num { display: block; }
+    .c-track .n .play-hover { display: none; color: ${accent}; font-size: 14px; letter-spacing: 0; }
+    .c-track:not(.no-audio):not(.active):hover .n .num { display: none; }
+    .c-track:not(.no-audio):not(.active):hover .n .play-hover { display: block; }
     .c-track .t { font-size: 13px; letter-spacing: 0.02em; }
     .c-track .w { height: 22px; }
     .c-track .d { color: var(--dim); font-size: 10px; text-align: right; letter-spacing: 0.1em; }
     .c-track:hover .t { color: ${accent}; }
+
+    /* Active track */
+    .c-track.active { background: rgba(126, 200, 227, 0.06); }
+    .c-track.active .n { color: ${accent}; }
+    .c-track.active .t { color: ${accent}; }
+
+    /* No-audio track */
+    .c-track.no-audio { cursor: default; opacity: 0.5; }
+    .c-track.no-audio:hover { background: none; }
+    .c-track.no-audio:hover .t { color: var(--fg); }
+
+    /* Playing indicator */
+    .c-track .playing-icon { color: ${accent}; animation: cblink 1s steps(2) infinite; }
 
     /* SPECTRUM PANEL */
     .c-spec { grid-column: span 4; }
@@ -162,7 +184,7 @@ export default function HomePage() {
       font-size: 10px; letter-spacing: 0.22em; color: var(--dim);
     }
 
-    /* ---- TABLET (768–1199px) ---- */
+    /* ---- TABLET (768-1199px) ---- */
     @media (max-width: 1199px) {
       .c-root { padding: 10px; }
       .c-rack { gap: 10px; }
@@ -199,14 +221,14 @@ export default function HomePage() {
       /* Bar labels */
       .c-bar { padding: 6px 8px; font-size: 7px; letter-spacing: 0.15em; }
 
-      /* Socials — single column */
+      /* Socials */
       .c-soc .c-body { grid-template-columns: repeat(2, 1fr); }
       .c-social { min-height: 100px; padding: 16px; }
       .c-social .glyph { font-size: 24px; }
       .c-social .name { font-size: 9px; margin-top: 10px; }
       .c-social .handle { font-size: 8px; }
 
-      /* Cover + Tracks — full width, stacked */
+      /* Cover + Tracks */
       .c-cover { grid-column: span 12; }
       .c-cover .c-body { aspect-ratio: 1; max-height: none; }
       .c-tracks { grid-column: span 12; grid-row: span 1; }
@@ -223,7 +245,7 @@ export default function HomePage() {
       .c-spec { grid-column: span 12; }
       .c-spec .c-body { height: 160px; }
 
-      /* Shows — stack vertically */
+      /* Shows */
       .c-shows { grid-column: span 12; }
       .c-show { grid-template-columns: 1fr; gap: 6px; padding: 14px 12px; }
       .c-show .date { font-size: 12px; }
@@ -232,7 +254,7 @@ export default function HomePage() {
       .c-show .city { font-size: 10px; }
       .c-show .tix { justify-self: start; padding: 5px 8px; font-size: 9px; }
 
-      /* Past shows — compact 2-col */
+      /* Past shows */
       .c-past { grid-template-columns: 90px 1fr; gap: 8px; font-size: 10px; }
       .c-past-block { padding: 10px 12px; }
 
@@ -244,12 +266,15 @@ export default function HomePage() {
       .c-book .email { font-size: 10px; padding: 12px; }
       .c-book .coords { font-size: 9px; }
 
-      /* Footer — stack */
+      /* Footer */
       .c-foot { flex-direction: column; gap: 8px; align-items: center; text-align: center;
         padding: 20px 12px 12px; font-size: 9px;
       }
     }
   `;
+
+  const isActive = (n: string) => player.currentTrack?.n === n;
+  const isTrackPlaying = (n: string) => isActive(n) && player.isPlaying;
 
   return (
     <div className="c-root">
@@ -261,13 +286,21 @@ export default function HomePage() {
           <div className="c-bar">
             <div><span className="id">{"CH·01"}</span> &nbsp; / &nbsp; HERO_BUS</div>
             <div className="leds">
-              <div className="led on" /><div className="led on" /><div className="led warm" /><div className="led" />
+              <div className="led on" /><div className="led on" /><div className="led warm" />
+              <div className={`led${player.isPlaying ? ' on' : ''}`} />
             </div>
             <div>{"44.1kHz · 24bit"}</div>
           </div>
           <div className="c-body">
             <div className="scope">
-              <Oscilloscope palette={palette} speed={speed} density={density} glow />
+              <Oscilloscope
+                palette={palette}
+                speed={speed}
+                density={density}
+                glow
+                seed={player.currentTrack?.seed ?? 1}
+                intensity={player.isPlaying ? 1.0 : 0.5}
+              />
             </div>
             <div className="gridlines" />
             <div className="vignette" />
@@ -278,11 +311,11 @@ export default function HomePage() {
             <div className="center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/wordmark-keyed.png" alt="INFINITE BITS" />
-              <div className="sub">{"A L G O R I T H M I C   B A N D   ·   S F"}</div>
+              <div className="sub">{"A L G O R I T H M I C   B A N D   ·   S F"}</div>
             </div>
             <div className="ticker">
               <div>{"CH.01 · WAVEFORM MONITOR"}</div>
-              <div>{"●"} <span style={{ color: accent }}>SIGNAL LOCK</span> &nbsp; LIVE</div>
+              <div>{"●"} <span style={{ color: accent }}>{player.isPlaying ? 'STREAMING' : 'SIGNAL LOCK'}</span> &nbsp; {player.isPlaying ? 'PLAY' : 'LIVE'}</div>
               <div>{"BPM 92 · KEY A·MIN ·"} <span className="blink">{"▸"}</span></div>
             </div>
           </div>
@@ -315,12 +348,24 @@ export default function HomePage() {
         <div className="c-panel c-tracks">
           <div className="c-bar">
             <div><span className="id">{"CH·04"}</span> {"·"} TRACKLIST</div>
-            <div>{BAND.lp.tracks.length} TRACKS {"·"} {BAND.lp.runtime}</div>
+            <div>
+              {player.currentTrack && player.isPlaying ? (
+                <span>
+                  <span style={{ color: accent }}>{"▸"}</span>{" "}
+                  {player.currentTrack.title.toUpperCase()}{" · "}
+                  {formatTime(player.currentTime)}
+                </span>
+              ) : (
+                <>{BAND.lp.tracks.length} TRACKS {"·"} {BAND.lp.runtime}</>
+              )}
+            </div>
           </div>
           <div className="c-body">
             {BAND.lp.tracks.map((t, i) => {
               const prev = BAND.lp.tracks[i - 1];
               const showDivider = !prev || prev.side !== t.side;
+              const trackActive = isActive(t.n);
+              const hasAudio = !!t.soundcloudUrl;
               return (
                 <React.Fragment key={t.n}>
                   {showDivider && (
@@ -332,10 +377,26 @@ export default function HomePage() {
                       </span>
                     </div>
                   )}
-                  <div className="c-track">
-                    <div className="n">{t.n}</div>
+                  <div
+                    className={`c-track${trackActive ? ' active' : ''}${!hasAudio ? ' no-audio' : ''}`}
+                    onClick={() => hasAudio && controls.playTrack(t)}
+                  >
+                    <div className="n">
+                      {isTrackPlaying(t.n)
+                        ? <span className="playing-icon">{"▸"}</span>
+                        : <><span className="num">{t.n}</span><span className="play-hover">{"▸"}</span></>}
+                    </div>
                     <div className="t">{t.title}</div>
-                    <div className="w"><MiniWave palette={palette} speed={speed} seed={t.seed} height={22} /></div>
+                    <div className="w">
+                      <MiniWave
+                        palette={palette}
+                        speed={speed}
+                        seed={t.seed}
+                        height={22}
+                        active={isTrackPlaying(t.n)}
+                        dimmed={player.isPlaying && !trackActive}
+                      />
+                    </div>
                     <div className="d">{t.dur}</div>
                   </div>
                 </React.Fragment>
@@ -354,7 +415,15 @@ export default function HomePage() {
             <div>-12 / 0 dB</div>
           </div>
           <div className="c-body">
-            <div><SpectrumBars palette={palette} speed={speed} bins={64} mode="rainbow" /></div>
+            <div>
+              <SpectrumBars
+                palette={palette}
+                speed={speed}
+                bins={64}
+                mode="rainbow"
+                intensity={player.isPlaying ? 1.0 : 0.4}
+              />
+            </div>
           </div>
         </div>
 
@@ -413,6 +482,22 @@ export default function HomePage() {
         </div>
 
       </div>
+
+      {/* Now Playing Transport Bar */}
+      {player.currentTrack && (
+        <NowPlayingBar
+          track={player.currentTrack}
+          isPlaying={player.isPlaying}
+          progress={player.progress}
+          currentTime={player.currentTime}
+          duration={player.duration}
+          onPlayPause={controls.togglePlayPause}
+          onNext={controls.nextTrack}
+          onPrev={controls.prevTrack}
+          onSeek={controls.seekTo}
+          accent={accent}
+        />
+      )}
     </div>
   );
 }
