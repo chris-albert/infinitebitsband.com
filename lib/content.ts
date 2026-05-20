@@ -4,6 +4,7 @@ export type Track = {
   dur: string;
   seed: number;
   side: 'A' | 'B';
+  soundcloudUrl?: string;
 };
 
 export type Show = {
@@ -32,18 +33,18 @@ export const BAND = {
     year: '2025',
     runtime: '39:02',
     tracks: [
-      { n: '01', title: 'Phase 1: Overture',       dur: '0:56', seed: 1.1, side: 'A' as const },
-      { n: '02', title: 'Robbin The Hood',         dur: '5:34', seed: 1.6, side: 'A' as const },
-      { n: '03', title: 'Dos Banditos',            dur: '5:15', seed: 2.1, side: 'A' as const },
-      { n: '04', title: 'Phase 2: Tune In',        dur: '0:19', seed: 2.4, side: 'A' as const },
-      { n: '05', title: 'Cigarette For The Tree',  dur: '5:40', seed: 2.7, side: 'A' as const },
-      { n: '06', title: 'Cave Of Forgotten',       dur: '4:09', seed: 3.1, side: 'B' as const },
-      { n: '07', title: 'Phase 3: Reflections',    dur: '0:27', seed: 3.3, side: 'B' as const },
-      { n: '08', title: 'The Space In Between',    dur: '5:06', seed: 3.6, side: 'B' as const },
-      { n: '09', title: 'Phase 4: Reckoning',      dur: '0:26', seed: 3.8, side: 'B' as const },
-      { n: '10', title: 'Invariant',               dur: '6:05', seed: 4.1, side: 'B' as const },
-      { n: '11', title: 'Night Terror',            dur: '5:05', seed: 4.5, side: 'B' as const },
-    ],
+      { n: '01', title: 'Phase 1: Overture',       dur: '0:56', seed: 1.1, side: 'A' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/phase-1-overture-1' },
+      { n: '02', title: 'Robbin The Hood',         dur: '5:34', seed: 1.6, side: 'A' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/robbin-the-hood-2' },
+      { n: '03', title: 'Dos Banditos',            dur: '5:15', seed: 2.1, side: 'A' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/dos-banditos-3' },
+      { n: '04', title: 'Phase 2: Tune In',        dur: '0:19', seed: 2.4, side: 'A' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/phase-2-tune-in-4' },
+      { n: '05', title: 'Cigarette For The Tree',  dur: '5:40', seed: 2.7, side: 'A' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/cigarette-for-the-tree-5' },
+      { n: '06', title: 'Cave Of Forgotten',       dur: '4:09', seed: 3.1, side: 'B' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/cave-of-forgotten-dreams-6' },
+      { n: '07', title: 'Phase 3: Reflections',    dur: '0:27', seed: 3.3, side: 'B' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/phase-3-reflections-7' },
+      { n: '08', title: 'The Space In Between',    dur: '5:06', seed: 3.6, side: 'B' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/the-space-in-between-8' },
+      { n: '09', title: 'Phase 4: Reckoning',      dur: '0:26', seed: 3.8, side: 'B' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/phase-4-reckoning-9' },
+      { n: '10', title: 'Invariant',               dur: '6:05', seed: 4.1, side: 'B' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/invariant-10' },
+      { n: '11', title: 'Night Terror',            dur: '5:05', seed: 4.5, side: 'B' as const, soundcloudUrl: 'https://soundcloud.com/infinite-bits/night-terror-11' },
+    ] as Track[],
   },
   shows: {
     upcoming: [

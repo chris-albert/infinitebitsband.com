@@ -6,9 +6,10 @@ type Props = {
   speed?: number;
   bins?: number;
   mode?: 'rainbow' | 'cycle';
+  intensity?: number;
 };
 
-export default function SpectrumBars({ palette, speed = 1, bins = 64, mode = 'rainbow' }: Props) {
+export default function SpectrumBars({ palette, speed = 1, bins = 64, mode = 'rainbow', intensity = 1 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef(0);
   const specRef = useRef(makeSpectrum(2));
@@ -16,11 +17,14 @@ export default function SpectrumBars({ palette, speed = 1, bins = 64, mode = 'ra
   const paletteRef = useRef(palette);
   const modeRef = useRef(mode);
   const binsRef = useRef(bins);
+  const intensityRef = useRef(intensity);
+  const smoothIntensityRef = useRef(intensity);
 
   useEffect(() => { speedRef.current = speed; }, [speed]);
   useEffect(() => { paletteRef.current = palette; }, [palette]);
   useEffect(() => { modeRef.current = mode; }, [mode]);
   useEffect(() => { binsRef.current = bins; }, [bins]);
+  useEffect(() => { intensityRef.current = intensity; }, [intensity]);
 
   useEffect(() => {
     const cvs = canvasRef.current;
@@ -46,6 +50,11 @@ export default function SpectrumBars({ palette, speed = 1, bins = 64, mode = 'ra
       const t = ((now - start) / 1000) * speedRef.current;
       const w = cvs!.width, h = cvs!.height;
       ctx!.clearRect(0, 0, w, h);
+
+      // Smooth intensity transition
+      smoothIntensityRef.current += (intensityRef.current - smoothIntensityRef.current) * 0.05;
+      const si = smoothIntensityRef.current;
+
       const n = binsRef.current;
       if (!smooth || smooth.length !== n) { smooth = new Float32Array(n); peaks = new Float32Array(n); }
       const data = specRef.current(t, n);
@@ -55,7 +64,7 @@ export default function SpectrumBars({ palette, speed = 1, bins = 64, mode = 'ra
 
       for (let i = 0; i < n; i++) {
         smooth[i] = smooth[i] * 0.75 + data[i] * 0.25;
-        const v = smooth[i];
+        const v = smooth[i] * si;
         if (v > peaks![i]) peaks![i] = v;
         else peaks![i] = Math.max(0, peaks![i] - 0.008);
         const bh = v * h * 0.95;
