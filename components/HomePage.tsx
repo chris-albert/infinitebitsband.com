@@ -140,14 +140,14 @@ export default function HomePage() {
 
     /* SOCIALS */
     .c-soc { grid-column: span 12; }
-    .c-soc .c-body { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); padding: 0; }
+    .c-soc .c-body { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--line); padding: 0; }
     .c-social { background: var(--panel); padding: 26px; display: flex; flex-direction: column; gap: 6px;
       text-decoration: none; color: var(--fg); transition: background 200ms; position: relative; min-height: 140px;
     }
     .c-social:hover { background: rgba(255,255,255,0.04); }
     .c-social .glyph { font-family: 'Orbitron', monospace; font-weight: 800; font-size: 36px; letter-spacing: 0.04em;
       color: transparent;
-      background: linear-gradient(135deg, ${palette[0]}, ${warm});
+      background: url('/images/Cosmic_Microwave_Background_(CMB).jpeg') center/200%;
       -webkit-background-clip: text; background-clip: text;
     }
     .c-social .name { font-size: 11px; letter-spacing: 0.2em; margin-top: 16px; }
@@ -290,7 +290,7 @@ export default function HomePage() {
 
         {/* CHANNELS */}
         <div className="c-panel c-soc">
-          <div className="c-bar"><div><span className="id">{"CH·02"}</span> {"·"} OUTBOUND CHANNELS</div><div>5 ENDPOINTS</div></div>
+          <div className="c-bar"><div><span className="id">{"CH·02"}</span> {"·"} OUTBOUND CHANNELS</div><div>6 ENDPOINTS</div></div>
           <div className="c-body">
             {BAND.socials.map(s => (
               <a className="c-social" href={s.url} target="_blank" rel="noreferrer" key={s.name}>

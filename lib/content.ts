@@ -48,7 +48,6 @@ export const BAND = {
   shows: {
     upcoming: [
       { date: 'TBD',         time: '—',   venue: 'ALBUM RELEASE',    city: 'San Francisco, CA', tix: 'soon' },
-      { date: 'JUN 20 2026', time: '—',   venue: 'NORTH BEACH FEST', city: 'San Francisco, CA', tix: 'rsvp' },
     ] as Show[],
     past: [
       { date: 'AUG 12 2025', venue: 'BOOM BOOM ROOM',     city: 'San Francisco, CA' },
@@ -67,6 +66,7 @@ export const BAND = {
     { name: 'bandcamp',   handle: 'infinitebits',        url: 'https://infinitebits.bandcamp.com/album/infinite-bits-ep', glyph: 'BC' },
     { name: 'soundcloud', handle: 'infinite-bits',       url: 'https://soundcloud.com/infinite-bits', glyph: 'SC' },
     { name: 'youtube',    handle: 'infinite bits',       url: 'https://www.youtube.com/channel/UCFdMVO3JBoVVtgP9l0r_eVA', glyph: 'YT' },
+    { name: 'apple music', handle: 'infinite bits',     url: 'https://music.apple.com/us/artist/infinite-bits/1662474092', glyph: 'AM' },
   ] as Social[],
   booking: 'infinitebitsband@gmail.com',
 } as const;
