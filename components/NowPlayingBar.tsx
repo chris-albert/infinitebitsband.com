@@ -40,7 +40,11 @@ export default function NowPlayingBar({
       font-size: 16px; letter-spacing: 0.1em; transition: all 200ms; line-height: 1;
     }
     .c-transport .btn:hover { border-color: ${accent}; color: ${accent}; }
-    .c-transport .btn.play { color: ${accent}; border-color: rgba(255,255,255,0.18); font-size: 20px; padding: 10px 16px; }
+    .c-transport .btn.play {
+      color: ${accent}; border-color: rgba(255,255,255,0.18); font-size: 20px;
+      width: 48px; height: 44px; padding: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
     .c-transport .info {
       display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0;
     }
@@ -62,7 +66,7 @@ export default function NowPlayingBar({
     @media (max-width: 767px) {
       .c-transport { gap: 10px; padding: 12px 14px; }
       .c-transport .btn { padding: 8px 10px; font-size: 14px; }
-      .c-transport .btn.play { font-size: 18px; padding: 8px 14px; }
+      .c-transport .btn.play { font-size: 18px; width: 44px; height: 40px; }
       .c-transport .title { max-width: 140px; font-size: 11px; }
       .c-transport .btn.skip { display: none; }
     }
@@ -75,7 +79,7 @@ export default function NowPlayingBar({
         <div className="btns">
           <button className="btn skip" onClick={onPrev}>{"◂◂"}</button>
           <button className="btn play" onClick={onPlayPause}>
-            {isPlaying ? "❚❚" : "▸"}
+            {isPlaying ? "❚❚" : "▶"}
           </button>
           <button className="btn skip" onClick={onNext}>{"▸▸"}</button>
         </div>
