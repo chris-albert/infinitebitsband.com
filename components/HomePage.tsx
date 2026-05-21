@@ -23,7 +23,7 @@ export default function HomePage() {
       background: var(--bg); color: var(--fg); font-family: 'JetBrains Mono', ui-monospace, monospace;
       width: 100%; min-height: 100vh; font-size: 13px;
       padding: 16px;
-      ${player.currentTrack ? 'padding-bottom: 64px;' : ''}
+      ${player.currentTrack ? 'padding-bottom: 80px;' : ''}
     }
     .c-rack { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
 
@@ -94,7 +94,7 @@ export default function HomePage() {
     .c-track:hover { background: rgba(255,255,255,0.04); }
     .c-track .n { color: var(--dim); font-size: 10px; letter-spacing: 0.2em; position: relative; }
     .c-track .n .num { display: block; }
-    .c-track .n .play-hover { display: none; color: ${accent}; font-size: 14px; letter-spacing: 0; }
+    .c-track .n .play-hover { display: none; color: ${accent}; font-size: 18px; letter-spacing: 0; }
     .c-track:not(.no-audio):not(.active):hover .n .num { display: none; }
     .c-track:not(.no-audio):not(.active):hover .n .play-hover { display: block; }
     .c-track .t { font-size: 13px; letter-spacing: 0.02em; }
