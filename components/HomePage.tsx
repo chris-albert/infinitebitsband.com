@@ -8,6 +8,47 @@ const SpectrumBars = dynamic(() => import('./visualizers/SpectrumBars'), { ssr: 
 const MiniWave = dynamic(() => import('./visualizers/MiniWave'), { ssr: false });
 const NowPlayingBar = dynamic(() => import('./NowPlayingBar'), { ssr: false });
 
+/* Social SVG icon paths (viewBox 0 0 24 24) */
+const SOCIAL_ICONS: Record<string, string> = {
+  instagram:
+    'M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z',
+  spotify:
+    'M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z',
+  bandcamp:
+    'M0 18.75l7.437-13.5H24l-7.438 13.5H0z',
+  soundcloud:
+    'M11.56 8.87V17h8.76a3.12 3.12 0 0 0 .72-6.17c-.28-2.81-2.65-5.02-5.55-5.02-1.14 0-2.2.35-3.08.96-.16.11-.19.15-.19.33v.77h-.01.35zm-1.23-.35v8.48h.56V8.37c-.2.04-.39.09-.56.15zm-1.2.94v7.54h.57V9.03a6.53 6.53 0 0 0-.57.43zm-1.19 1.7v5.84h.57V11.5c-.2.2-.39.42-.57.66zm-1.2 1.86v3.98h.58v-4.2a8.1 8.1 0 0 0-.58.22zM5.55 14v3h.57v-3.28c-.2.07-.39.17-.57.28zm-1.2.78v2.2h.58v-2.04a2.45 2.45 0 0 0-.58-.16zm-1.2.38v1.84h.58v-1.8c-.2.01-.39-.01-.58-.04zm-1.19.1v1.59c.08.06.17.11.27.15.1.03.2.04.3.04v-1.96a1.15 1.15 0 0 0-.57.18z',
+  youtube:
+    'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z',
+  'apple music':
+    'M15.5 2.1c-.3-.1-.5 0-.7.1l-7 3.2c-.3.1-.5.4-.5.7v9.4c-.6-.4-1.3-.5-2-.5-1.9 0-3.3 1.2-3.3 2.8S3.4 20.5 5.3 20.5s3.3-1.2 3.3-2.7V9.4l5.7-2.6v6.7c-.6-.4-1.3-.5-2-.5-1.9 0-3.3 1.2-3.3 2.8s1.4 2.7 3.3 2.7 3.3-1.2 3.3-2.7V2.8c0-.3-.1-.6-.4-.7h-.2z',
+};
+
+/* Render a social icon SVG with CMB background via mask */
+function SocialIcon({ name }: { name: string }) {
+  const path = SOCIAL_ICONS[name];
+  if (!path) return <span className="glyph">{name}</span>;
+  const viewBox = '0 0 24 24';
+  const id = `cmb-${name.replace(/\s+/g, '-')}`;
+  return (
+    <svg className="glyph-icon" viewBox={viewBox} xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <mask id={id}>
+          <rect width="100%" height="100%" fill="black" />
+          <path d={path} fill="white" />
+        </mask>
+      </defs>
+      <image
+        href="/images/Cosmic_Microwave_Background_(CMB).jpeg"
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid slice"
+        mask={`url(#${id})`}
+      />
+    </svg>
+  );
+}
+
 const palette = PALETTES.cosmic;
 const speed = 1;
 const density = 4;
@@ -167,11 +208,7 @@ export default function HomePage() {
       text-decoration: none; color: var(--fg); transition: background 200ms; position: relative; min-height: 140px;
     }
     .c-social:hover { background: rgba(255,255,255,0.04); }
-    .c-social .glyph { font-family: 'Orbitron', monospace; font-weight: 800; font-size: 36px; letter-spacing: 0.04em;
-      color: transparent;
-      background: url('/images/Cosmic_Microwave_Background_(CMB).jpeg') center/200%;
-      -webkit-background-clip: text; background-clip: text;
-    }
+    .c-social .glyph-icon { width: 36px; height: 36px; }
     .c-social .name { font-size: 11px; letter-spacing: 0.2em; margin-top: 16px; }
     .c-social .handle { font-size: 10px; letter-spacing: 0.08em; color: var(--dim); }
     .c-social .arr { position: absolute; top: 22px; right: 22px; color: var(--dim);
@@ -314,7 +351,7 @@ export default function HomePage() {
               <div className="sub">{"A L G O R I T H M I C   B A N D   ·   S F"}</div>
             </div>
             <div className="ticker">
-              <div>{"CH.01 · WAVEFORM MONITOR"}</div>
+              <div style={{ marginLeft: 34 }}>{"WAVEFORM MONITOR"}</div>
               <div>{"●"} <span style={{ color: accent }}>{player.isPlaying ? 'STREAMING' : 'SIGNAL LOCK'}</span> &nbsp; {player.isPlaying ? 'PLAY' : 'LIVE'}</div>
               <div>{"BPM 92 · KEY A·MIN ·"} <span className="blink">{"▸"}</span></div>
             </div>
@@ -327,7 +364,7 @@ export default function HomePage() {
           <div className="c-body">
             {BAND.socials.map(s => (
               <a className="c-social" href={s.url} target="_blank" rel="noreferrer" key={s.name}>
-                <div className="glyph">{s.glyph}</div>
+                <SocialIcon name={s.name} />
                 <div className="name">{s.name.toUpperCase()}</div>
                 <div className="handle">{s.handle}</div>
                 <div className="arr">{"↗"}</div>
