@@ -351,7 +351,7 @@ export default function HomePage() {
               <div className="sub">{"A L G O R I T H M I C   B A N D   ·   S F"}</div>
             </div>
             <div className="ticker">
-              <div>{"WAVEFORM MONITOR"}</div>
+              <div style={{ marginLeft: 24 }}>{"WAVEFORM MONITOR"}</div>
               <div>{"●"} <span style={{ color: accent }}>{player.isPlaying ? 'STREAMING' : 'SIGNAL LOCK'}</span> &nbsp; {player.isPlaying ? 'PLAY' : 'LIVE'}</div>
               <div>{"BPM 92 · KEY A·MIN ·"} <span className="blink">{"▸"}</span></div>
             </div>
