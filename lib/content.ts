@@ -13,6 +13,8 @@ export type Show = {
   venue: string;
   city: string;
   tix?: string;
+  note?: string;
+  url?: string;
 };
 
 export type Social = {
@@ -48,7 +50,7 @@ export const BAND = {
   },
   shows: {
     upcoming: [
-      { date: 'TBD',         time: '—',   venue: 'ALBUM RELEASE',    city: 'San Francisco, CA', tix: 'soon' },
+      { date: 'OCT 14 2026', time: '—',   venue: 'KILOWATT',         city: 'San Francisco, CA', tix: 'tickets', note: 'ALBUM RELEASE', url: 'https://dice.fm/event/g58n5b-infinite-bits-the-five-highs-and-the-genie-14th-oct-kilowatt-san-francisco-tickets' },
     ] as Show[],
     past: [
       { date: 'AUG 12 2025', venue: 'BOOM BOOM ROOM',     city: 'San Francisco, CA' },

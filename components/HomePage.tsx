@@ -175,8 +175,9 @@ export default function HomePage() {
     .c-show .date .time { display: block; color: var(--dim); font-size: 10px; margin-top: 3px; }
     .c-show .venue { font-size: 14px; letter-spacing: 0.05em; }
     .c-show .city { color: var(--dim); font-size: 11px; letter-spacing: 0.1em; }
+    .c-show .venue .note { display: block; color: var(--dim); font-size: 10px; letter-spacing: 0.2em; margin-top: 3px; }
     .c-show .tix { font-size: 10px; letter-spacing: 0.25em; padding: 7px 10px;
-      border: 1px solid var(--line); color: var(--dim); text-align: center; transition: all 200ms;
+      border: 1px solid var(--line); color: var(--dim); text-align: center; transition: all 200ms; text-decoration: none;
     }
     .c-show:hover .tix { border-color: ${accent}; color: ${accent}; }
 
@@ -475,9 +476,11 @@ export default function HomePage() {
               {BAND.shows.upcoming.map(s => (
                 <div className="c-show" key={s.date}>
                   <div className="date">{s.date}<span className="time">{s.time}</span></div>
-                  <div className="venue">{s.venue}</div>
+                  <div className="venue">{s.venue}{s.note && <span className="note">{s.note}</span>}</div>
                   <div className="city">{s.city}</div>
-                  <div className="tix">{s.tix!.toUpperCase()} {"→"}</div>
+                  {s.url
+                    ? <a className="tix" href={s.url} target="_blank" rel="noopener noreferrer">{s.tix!.toUpperCase()} {"→"}</a>
+                    : <div className="tix">{s.tix!.toUpperCase()} {"→"}</div>}
                 </div>
               ))}
             </div>
