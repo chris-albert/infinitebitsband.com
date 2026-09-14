@@ -50,7 +50,7 @@ export const BAND = {
   },
   shows: {
     upcoming: [
-      { date: 'OCT 14 2026', time: '—',   venue: 'KILOWATT',         city: 'San Francisco, CA', tix: 'tickets', note: 'ALBUM RELEASE', url: 'https://dice.fm/event/g58n5b-infinite-bits-the-five-highs-and-the-genie-14th-oct-kilowatt-san-francisco-tickets' },
+      { date: 'OCT 14 2026', time: 'DOORS 7PM', venue: 'KILOWATT',         city: 'San Francisco, CA', tix: 'free', note: 'ALBUM RELEASE', url: 'https://dice.fm/event/g58n5b-infinite-bits-the-five-highs-and-the-genie-14th-oct-kilowatt-san-francisco-tickets' },
     ] as Show[],
     past: [
       { date: 'AUG 12 2025', venue: 'BOOM BOOM ROOM',     city: 'San Francisco, CA' },
