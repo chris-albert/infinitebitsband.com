@@ -78,6 +78,12 @@ export const BAND = {
     { name: 'apple music', handle: 'infinite bits',     url: 'https://music.apple.com/us/artist/infinite-bits/1662474092', glyph: 'AM' },
   ] as Social[],
   booking: 'infinitebitsband@gmail.com',
+  // Kit (kit.com) signup form. In Kit: Grow → Landing Pages & Forms → your form → Publish → HTML,
+  // then copy the <form action="..."> URL here. The email input must be named email_address.
+  newsletter: {
+    action: 'https://app.kit.com/forms/10101494/subscriptions',
+    emailField: 'email_address',
+  },
 } as const;
 
 export const PALETTES: Record<string, string[]> = {
