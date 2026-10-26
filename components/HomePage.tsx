@@ -217,6 +217,27 @@ export default function HomePage() {
     }
     .c-social:hover .arr { transform: translate(3px, -3px); color: ${accent}; }
 
+    /* MAILING LIST */
+    .c-list { grid-column: span 12; }
+    .c-list .c-body { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 22px; }
+    .c-list .h { font-family: 'Orbitron', monospace; font-size: 26px; font-weight: 600; letter-spacing: 0.05em; }
+    .c-list .p { font-size: 12px; line-height: 1.6; color: var(--dim); margin-top: 8px; }
+    .c-list .form { display: flex; gap: 8px; flex: 0 0 auto; }
+    .c-list input[type=email] { background: rgba(255,255,255,0.02); border: 1px solid var(--line); color: var(--fg);
+      font-family: inherit; font-size: 12px; letter-spacing: 0.1em; padding: 14px 16px; width: 280px; outline: none;
+    }
+    .c-list input[type=email]:focus { border-color: ${accent}; }
+    .c-list input::placeholder { color: var(--dim); }
+    .c-list button { background: transparent; border: 1px solid var(--line); color: var(--fg); cursor: pointer;
+      font-family: inherit; font-size: 12px; letter-spacing: 0.1em; padding: 14px 16px; transition: all 200ms;
+    }
+    .c-list button:hover { border-color: ${accent}; color: ${accent}; }
+    @media (max-width: 767px) {
+      .c-list .c-body { flex-direction: column; align-items: stretch; gap: 18px; }
+      .c-list .form { flex-direction: column; }
+      .c-list input[type=email] { width: 100%; }
+    }
+
     /* FOOT */
     .c-foot { grid-column: span 12; padding: 32px 16px 16px; display: flex; justify-content: space-between;
       font-size: 10px; letter-spacing: 0.22em; color: var(--dim);
@@ -512,6 +533,25 @@ export default function HomePage() {
               <div className="coord"><div className="k">TZ</div><div>{"PST · UTC−8"}</div></div>
               <div className="coord"><div className="k">EST</div><div>2022</div></div>
             </div>
+          </div>
+        </div>
+
+        <div className="c-panel c-list">
+          <div className="c-bar"><div><span className="id">{"CH·08"}</span> {"·"} MAILING LIST</div><div>LOW FREQUENCY</div></div>
+          <div className="c-body">
+            <div>
+              <div className="h">Tune in.</div>
+              <div className="p">Show announcements and new releases, nothing else. A few emails a year.</div>
+            </div>
+            <form
+              className="form"
+              action={BAND.newsletter.action}
+              method="post"
+              target="_blank"
+            >
+              <input type="email" name={BAND.newsletter.emailField} placeholder="you@signal.fm" required />
+              <button type="submit">SUBSCRIBE {"→"}</button>
+            </form>
           </div>
         </div>
 
