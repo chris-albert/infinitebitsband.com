@@ -100,7 +100,6 @@ export default function HomePage() {
       justify-content: center; align-items: center; gap: 24px; padding: 0 80px; pointer-events: none;
     }
     .c-hero .center img { width: 100%; max-width: 960px; height: auto; filter: drop-shadow(0 0 30px rgba(0,0,0,0.6)); }
-    .c-hero .center .sub { font-size: 11px; letter-spacing: 0.5em; color: var(--dim); }
     .c-hero .corners { position: absolute; inset: 16px; pointer-events: none; }
     .c-hero .corner { position: absolute; width: 18px; height: 18px; border: 1px solid ${accent}; }
     .c-hero .corner.tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
@@ -272,7 +271,6 @@ export default function HomePage() {
       /* Hero */
       .c-hero { height: 280px; }
       .c-hero .center { padding: 0 20px; gap: 14px; }
-      .c-hero .center .sub { font-size: 8px; letter-spacing: 0.3em; }
       .c-hero .corners { inset: 8px; }
       .c-hero .corner { width: 12px; height: 12px; }
       .c-hero .ticker { font-size: 7px; letter-spacing: 0.1em; bottom: 6px; left: 6px; right: 6px; }
@@ -370,7 +368,6 @@ export default function HomePage() {
             <div className="center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/wordmark-keyed.png" alt="INFINITE BITS" />
-              <div className="sub">{"A L G O R I T H M I C   B A N D   ·   S F"}</div>
             </div>
             <div className="ticker">
               <div style={{ marginLeft: 34 }}>{"WAVEFORM MONITOR"}</div>
