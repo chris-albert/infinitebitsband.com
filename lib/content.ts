@@ -49,7 +49,9 @@ export const BAND = {
     ] as Track[],
   },
   shows: {
-    upcoming: [] as Show[],
+    upcoming: [
+      { date: 'DEC 04 2026', venue: 'BOOM BOOM ROOM', city: 'San Francisco, CA', tix: 'info', url: 'https://boomboomroom.com/' },
+    ] as Show[],
     past: [
       { date: 'OCT 14 2026', venue: 'KILOWATT',           city: 'San Francisco, CA' },
       { date: 'AUG 12 2025', venue: 'BOOM BOOM ROOM',     city: 'San Francisco, CA' },
